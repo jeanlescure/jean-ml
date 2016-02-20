@@ -1,7 +1,7 @@
 require('dotenv').config({path: '../'});
 
 exports.up = function(knex, Promise) {
-  knex.raw('CREATE EXTENSION IF NOT EXISTS pgcrypto').then(function() {
+  return knex.raw('CREATE EXTENSION IF NOT EXISTS pgcrypto').then(function() {
     return knex.schema.createTable(process.env.DB_TABLE, function(table) {
       table.string('id', 6).primary();
       table.string('destination_url').unique();
