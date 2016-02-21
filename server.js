@@ -92,7 +92,13 @@ app.get('/:id', function (req, res) {
   new TinyURL({'id': req.params.id})
   .fetch()
   .then(function(url) {
-    res.redirect(302, url.get('destination_url'));
+    var view_count = url.get('view_count');
+    var destination_url = url.get('destination_url');
+
+    url.set('view_count', view_count + 1);
+    url.save()).then(function(u) {
+      res.redirect(302, destination_url);
+    });
   });
 });
 
