@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/jquery-2.2.0.min.js"></script>
+  <script src="/js/clipboard.min.js"></script>
+  <script src="/js/main.js"></script>
+</head>
+<body>
+  <h1><%= title %></h1>
+  <form id="urlForm" action="/create" method="post">
+    <input name="url" placeholder="http://jeanlescure.io/example/"/>
+    <button>Save</button>
+  </form>
+  <div class="error"></div>
+  <div class="meta-items">
+    <% meta_list.forEach(function(meta_json) { %>
+      <%- include('metaItem', {meta_json: meta_json}); %>
+    <% }); %>
+  </div>
+  <script>var access_token = '<%= access_token %>';</script>
+</body>
+</html>

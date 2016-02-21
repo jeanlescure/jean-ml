@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       table.string('id', 6).primary();
       table.string('destination_url').unique();
       table.json('meta_json');
-      table.integer('view_count').unique();
+      table.integer('view_count').defaultTo(0);
       table.timestamp('created_at', true).defaultTo(knex.raw('now()'));
       table.timestamp('updated_at', true).defaultTo(knex.raw('now()'));
     });

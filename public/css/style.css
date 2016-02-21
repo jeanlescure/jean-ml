@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  padding: 30px;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 18px;
+}
+
+h1 {
+  color: #222531;
+}
+
+a {
+  color: #bada55;
+}
+
+button {
+  border-radius: 3px;
+}
+
+.meta-item {
+  padding: 20px;
+  border-bottom: 1px #d3d8ee solid;
+  max-width: 600px;
+}
+
+.meta-item h3 {
+  color: #222531;
+}
+
+.meta-item p {
+  color: #333541;
+  text-align: justify;
+}
+
+.meta-item p img {
+  float: left;
+  width: 200px;
+  height: 160px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.clippy {
+  margin-top: -3px;
+  position: relative;
+  top: 3px;
+}
+
+.clearfix {
+  display: block;
+  clear: both;
+}
+
+.error {
+  color: #e50000;
+}

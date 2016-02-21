@@ -4,18 +4,22 @@
   "description": "Personal URL shortener",
   "main": "server.js",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "bookshelf": "^0.9.2",
     "dotenv": "^2.0.0",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
     "knex": "^0.10.0",
+    "lodash": "^4.5.0",
+    "metafetch": "^1.2.3",
     "pg": "^4.4.6",
     "short-uid": "^0.1.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production knex migrate:latest && node server.js"
+    "start": "NODE_ENV=production knex migrate:latest && node server.js",
+    "dev": "node server.js"
   },
   "repository": {
     "type": "git",
