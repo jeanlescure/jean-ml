@@ -34,7 +34,7 @@ app.get('/', function (req, res) {
     var url_list = urls.toJSON();
 
     var meta_list = _.map(url_list, function(url){
-      return _.assign({tiny_url: tinify(url.id), destination_url: url.destination_url}, url.meta_json);
+      return _.assign({tiny_url: tinify(url.id), destination_url: url.destination_url, view_count: url.view_count}, url.meta_json);
     });
 
     res.render('index', {
@@ -76,8 +76,9 @@ app.post('/create', function (req, res) {
       var id = model.get('id');
       var destination_url = model.get('destination_url');
       var meta_json = model.get('meta_json');
+      var view_count = model.get('view_count');
 
-      meta_json = _.assign({tiny_url: tinify(id), destination_url: destination_url}, JSON.parse(meta_json));
+      meta_json = _.assign({tiny_url: tinify(id), destination_url: destination_url, view_count: view_count}, JSON.parse(meta_json));
       var result = {meta_item: ejs.render(metaItemString, {meta_json: meta_json})};
 
       res.status(200).send(result);
@@ -96,7 +97,7 @@ app.get('/:id', function (req, res) {
     var destination_url = url.get('destination_url');
 
     url.set('view_count', view_count + 1);
-    url.save()).then(function(u) {
+    url.save().then(function(u) {
       res.redirect(302, destination_url);
     });
   });
