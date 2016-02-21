@@ -1,11 +1,12 @@
 <div class="meta-item">
   <h3><%= meta_json.title %></h3>
   <h4><a href="<%= meta_json.tiny_url %>" title="<%= meta_json.title %>"><%= meta_json.tiny_url %></a> <button class="copy-tiny-url"  data-clipboard-text="<%= meta_json.tiny_url %>"><img class="clippy" src="/img/clippy.svg" width="13" alt="Copy to clipboard" /></button></h4>
+  <h5>Views: <%= meta_json.view_count %></h5>
   <p>
     <a href="<%= meta_json.image %>" target="_blank">
       <img src="<%= meta_json.image %>" alt="<%= meta_json.title %>" />
     </a>
-    <%= meta_json.description %><br/><br/><a href="<%= meta_json.destination_url %>" target="_blank">Visit Site</a>
+    <%= meta_json.description %><br/><br/><a href="<%= meta_json.destination_url %>" target="_blank">Original URL</a>
     <span class="clearfix"></span>
   </p>
 </div>
