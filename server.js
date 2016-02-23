@@ -30,7 +30,9 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-  TinyURL.fetchAll().then(function(urls){
+  TinyURL.query(function(qb){
+    qb.orderBy('created_at','DESC'); 
+  }).fetchAll().then(function(urls){
     var url_list = urls.toJSON();
 
     var meta_list = _.map(url_list, function(url){
@@ -72,11 +74,11 @@ app.post('/create', function (req, res) {
     },
     {
       method: 'insert'
-    }).then(function(model) {
-      var id = model.get('id');
-      var destination_url = model.get('destination_url');
-      var meta_json = model.get('meta_json');
-      var view_count = model.get('view_count');
+    }).then(function(url) {
+      var id = url.get('id');
+      var destination_url = url.get('destination_url');
+      var meta_json = url.get('meta_json');
+      var view_count = url.get('view_count');
 
       meta_json = _.assign({tiny_url: tinify(id), destination_url: destination_url, view_count: view_count}, JSON.parse(meta_json));
       var result = {meta_item: ejs.render(metaItemString, {meta_json: meta_json})};
@@ -90,17 +92,21 @@ app.post('/create', function (req, res) {
 });
 
 app.get('/:id', function (req, res) {
-  new TinyURL({'id': req.params.id})
-  .fetch()
-  .then(function(url) {
-    var view_count = url.get('view_count');
-    var destination_url = url.get('destination_url');
+  if (req.params.id){}
+    new TinyURL({'id': req.params.id})
+    .fetch()
+    .then(function(url) {
+      var view_count = url.get('view_count');
+      var destination_url = url.get('destination_url');
 
-    url.set('view_count', view_count + 1);
-    url.save().then(function(u) {
-      res.redirect(302, destination_url);
+      url.set('view_count', view_count + 1);
+      url.save().then(function(u) {
+        res.redirect(302, destination_url);
+      });
     });
-  });
+  }
+
+  next();
 });
 
 app.listen(process.env.SERVER_PORT, function () {
