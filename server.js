@@ -31,7 +31,7 @@ app.use(express.static('public'));
 
 app.get('/', function (req, res) {
   TinyURL.query(function(qb){
-    qb.orderBy('created_at','DESC'); 
+    qb.orderBy('created_at','ASC'); 
   }).fetchAll().then(function(urls){
     var url_list = urls.toJSON();
 
