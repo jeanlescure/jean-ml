@@ -92,7 +92,7 @@ app.post('/create', function (req, res) {
 });
 
 app.get('/:id', function (req, res) {
-  if (req.params.id){
+  if (req.params.id && req.params.id !== 'favicon.ico'){
     new TinyURL({'id': req.params.id})
     .fetch()
     .then(function(url) {
@@ -103,10 +103,11 @@ app.get('/:id', function (req, res) {
       url.save().then(function(u) {
         res.redirect(302, destination_url);
       });
+    }).catch(function(err){
+      console.log(err);
+      res.status(500).send('Error fetching destination url...');
     });
   }
-
-  next();
 });
 
 app.listen(process.env.SERVER_PORT, function () {
@@ -127,5 +128,11 @@ var nope = [
   '"never" is a bit excessive, so I\'ll just say "no"',
   'I cannot oblige',
   'goo.gl might work for what you need',
-  '"no" means "definitely not"'
+  '"no" means "definitely not"',
+  'well, this is uncomfortable...',
+  'nyet',
+  'inconceivable',
+  'this is not... wait for it... gonna happen',
+  'simply no',
+  'talk to the hand'
 ];
