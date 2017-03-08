@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+var request = require('request');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
@@ -29,6 +30,16 @@ app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 
+app.get('/i/:i', function(req, res) {
+  request.get(req.param('i'), function(e,r,b){
+    if (e) {
+      res.status(404).send('Image Not Found');
+      return;
+    }
+    if (r) res.status(r.statusCode).send(b);
+  });
+});
+
 app.get('/', function (req, res) {
   TinyURL.query(function(qb){
     qb.orderBy('created_at','ASC'); 
@@ -48,7 +59,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/create', function (req, res) {
-  if (!(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/).test(req.body.url)) {
+  if (!(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,8}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/).test(req.body.url)) {
     res.status(500).send(_.sample(nope));
     return;
   }
@@ -115,7 +126,7 @@ app.listen(process.env.SERVER_PORT, function () {
 });
 
 function tinify(id) {
-  return 'http://jean.ml/' + id;
+  return 'https://jean.ml/' + id;
 }
 
 var nope = [
